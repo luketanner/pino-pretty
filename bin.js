@@ -16,7 +16,8 @@ args
   .option(['k', 'errorLikeObjectKeys'], 'Define which keys contain error objects (`-k err,error`)', 'err,error')
   .option(['m', 'messageKey'], 'Highlight the message under the specified key', CONSTANTS.MESSAGE_KEY)
   .option(['t', 'translateTime'], 'Display epoch timestamps as UTC ISO format or according to an optional format string (default ISO 8601)')
-  .option(['s', 'search'], 'specifiy a search pattern according to jmespath')
+  .option(['s', 'search'], 'Specifiy a search pattern according to jmespath')
+  .option(['C', 'compact'], "Omit the 'name', 'pid' and 'hostname' fields")
 
 args
   .example('cat log | pino-pretty', 'To prettify logs, simply pipe a log file through')

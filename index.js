@@ -134,7 +134,7 @@ module.exports = function prettyFactory (options) {
       line = `${lineOrEmpty}${coloredLevel}`
     }
 
-    if (log.name || log.pid || log.hostname) {
+    if (!opts.compact && (log.name || log.pid || log.hostname)) {
       line += ' ('
 
       if (log.name) {
@@ -154,7 +154,7 @@ module.exports = function prettyFactory (options) {
       line += ')'
     }
 
-    line += ': '
+    line += ' '
 
     if (log[messageKey] && typeof log[messageKey] === 'string') {
       line += color.message(log[messageKey])
