@@ -127,16 +127,20 @@ module.exports = function prettyFactory (options) {
 
     var line = log.time ? `[${log.time}]` : ''
 
-    const coloredLevel = levels.hasOwnProperty(log.level)
-      ? color[log.level](levels[log.level])
-      : color.default(levels.default)
+    const levelName = levels.hasOwnProperty(log.level)
+      ? levels[log.level]
+      : levels.default
+    const levelColor = levels.hasOwnProperty(log.level)
+      ? color[log.level]
+      : color.default
+
     if (opts.levelFirst) {
-      line = `${coloredLevel} ${line}`
+      line = levelColor(`${levelName} ${line}`)
     } else {
       // If the line is not empty (timestamps are enabled) output it
       // with a space after it - otherwise output the empty string
       const lineOrEmpty = line && line + ' '
-      line = `${lineOrEmpty}${coloredLevel}`
+      line = levelColor(`${lineOrEmpty}${levelName}`);
     }
 
     if (!opts.compact && (log.name || log.pid || log.hostname)) {
