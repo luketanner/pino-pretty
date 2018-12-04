@@ -72,7 +72,8 @@ module.exports = function prettyFactory (options) {
     30: nocolor,
     20: nocolor,
     10: nocolor,
-    message: nocolor
+    message: nocolor,
+    channel: nocolor
   }
   if (opts.colorize) {
     const ctx = new chalk.constructor({ enabled: true, level: 3 })
@@ -84,6 +85,7 @@ module.exports = function prettyFactory (options) {
     color[20] = ctx.blue
     color[10] = ctx.grey
     color.message = ctx.cyan
+    color.channel = ctx.magenta
   }
 
   const search = opts.search
@@ -108,6 +110,7 @@ module.exports = function prettyFactory (options) {
     }
 
     const standardKeys = [
+      'channel',
       'pid',
       'hostname',
       'name',
@@ -155,6 +158,10 @@ module.exports = function prettyFactory (options) {
     }
 
     line += ' '
+
+    if (log.channel) {
+      line += color.channel(`[${log.channel}] `)
+    }
 
     if (log[messageKey] && typeof log[messageKey] === 'string') {
       line += color.message(log[messageKey])
