@@ -48,7 +48,9 @@ function formatTime (epoch, translateTime) {
       ? dateformat(instant, 'UTC:' + translateTime)
       : (upperFormat === 'SYS:STANDARD')
         ? dateformat(instant, CONSTANTS.DATE_FORMAT)
-        : dateformat(instant, translateTime.slice(4))
+        : (upperFormat === 'SYS:COMPACT')
+          ? dateformat(instant, CONSTANTS.DATE_FORMAT_COMPACT)
+          : dateformat(instant, translateTime.slice(4))
   }
 }
 
