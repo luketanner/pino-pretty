@@ -199,10 +199,10 @@ module.exports = function prettyFactory (options) {
           if (log[key] instanceof Object) {
             // call 'filterObjects' with 'excludeStandardKeys' = false
             // because nested property might contain property from 'standardKeys'
-            line += key + ': {' + EOL + filterObjects(log[key], '', errorLikeObjectKeys, false) + '}' + EOL
+            line += IDENT + key + ': {' + EOL + filterObjects(log[key], '', errorLikeObjectKeys, false) + '}' + EOL
             continue
           }
-          line += key + ': ' + log[key] + EOL
+          line += IDENT + key + ': ' + log[key] + EOL
         }
       }
     } else {
