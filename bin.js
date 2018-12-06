@@ -18,7 +18,8 @@ args
   .option(['t', 'translateTime'], 'Display epoch timestamps as UTC ISO format or according to an optional format string (default ISO 8601)')
   .option(['s', 'search'], 'Specifiy a search pattern according to jmespath')
   .option(['C', 'compact'], "Omit the 'name', 'pid' and 'hostname' fields")
-  .option(['H', 'expandHighlight'], "Expand the log level highlight to include the timestamp")
+  .option(['H', 'expandHighlight'], 'Expand the log level highlight to include the timestamp')
+  .option(['L', 'additionalLine'], 'Print an additional (empty) line between log entries')
 
 args
   .example('cat log | pino-pretty', 'To prettify logs, simply pipe a log file through')

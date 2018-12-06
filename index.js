@@ -212,6 +212,8 @@ module.exports = function prettyFactory (options) {
       line += filterObjects(log, typeof log[messageKey] === 'string' ? messageKey : undefined, errorLikeObjectKeys)
     }
 
+    if (opts.additionalLine) line += EOL;
+
     return line
 
     function joinLinesWithIndentation (value) {
