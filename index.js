@@ -80,14 +80,12 @@ module.exports = function prettyFactory (options) {
   if (opts.colorize) {
     const ctx = new chalk.constructor({ enabled: true, level: 3 })
     color.default = ctx.white
-    color[60] = ctx.bgRed.white
+    color[60] = ctx.magenta
     color[50] = ctx.red
     color[40] = ctx.yellow
     color[30] = ctx.green
     color[20] = ctx.blue
     color[10] = ctx.grey
-    color.message = ctx.cyan
-    color.channel = ctx.magenta
   }
 
   const search = opts.search
@@ -126,22 +124,27 @@ module.exports = function prettyFactory (options) {
     }
 
     var line = log.time ? `[${log.time}]` : ''
+    line = opts.expandHighlight ? chalk.bgBlack(line) : chalk.grey(line)
 
-    const levelName = levels.hasOwnProperty(log.level)
-      ? levels[log.level]
-      : levels.default
     const levelColor = levels.hasOwnProperty(log.level)
       ? color[log.level]
       : color.default
+    let levelName = levels.hasOwnProperty(log.level)
+      ? levels[log.level]
+      : levels.default
+    levelName = chalk.bgWhite.bold(` ${levelName} `)
+    if (!opts.expandHighlight) levelName = levelColor.inverse(levelName)
 
     if (opts.levelFirst) {
-      line = levelColor(`${levelName} ${line}`)
+      line = `${levelName} ${line}`
     } else {
       // If the line is not empty (timestamps are enabled) output it
       // with a space after it - otherwise output the empty string
       const lineOrEmpty = line && line + ' '
-      line = levelColor(`${lineOrEmpty}${levelName}`);
+      line = `${lineOrEmpty}${levelName}`
     }
+
+    if (opts.expandHighlight) line = levelColor.inverse(line)
 
     if (!opts.compact && (log.name || log.pid || log.hostname)) {
       line += ' ('
@@ -166,11 +169,11 @@ module.exports = function prettyFactory (options) {
     line += ' '
 
     if (log.channel) {
-      line += color.channel(`[${log.channel}] `)
+      line += chalk.bold(`${log.channel}: `)
     }
 
     if (log[messageKey] && typeof log[messageKey] === 'string') {
-      line += color.message(log[messageKey])
+      line += levelColor(log[messageKey])
     }
 
     line += EOL

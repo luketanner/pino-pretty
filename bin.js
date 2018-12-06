@@ -14,10 +14,11 @@ args
   .option(['e', 'errorProps'], 'Comma separated list of properties on error objects to show (`*` for all properties)', '')
   .option(['l', 'levelFirst'], 'Display the log level as the first output field')
   .option(['k', 'errorLikeObjectKeys'], 'Define which keys contain error objects (`-k err,error`)', 'err,error')
-  .option(['m', 'messageKey'], 'Highlight the message under the specified key', CONSTANTS.MESSAGE_KEY)
+  .option(['m', 'messageKey'], 'Feature the message under the specified key', CONSTANTS.MESSAGE_KEY)
   .option(['t', 'translateTime'], 'Display epoch timestamps as UTC ISO format or according to an optional format string (default ISO 8601)')
   .option(['s', 'search'], 'Specifiy a search pattern according to jmespath')
   .option(['C', 'compact'], "Omit the 'name', 'pid' and 'hostname' fields")
+  .option(['H', 'expandHighlight'], "Expand the log level highlight to include the timestamp")
 
 args
   .example('cat log | pino-pretty', 'To prettify logs, simply pipe a log file through')
